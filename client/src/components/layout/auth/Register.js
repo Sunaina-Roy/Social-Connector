@@ -1,23 +1,34 @@
 import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { setAlert } from "../../../actions/alert";
+import { register } from "../../../actions/auth";
 import { Link, Redirect } from "react-router-dom";
-const Register = () => {
+import PropTypes from "prop-types";
+
+export const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     password2: "",
   });
+
   const { name, email, password, password2 } = formData;
+
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  // const onSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (password !== password2) {
-  //     setAlert("Passwords do not match!", "danger");
-  //   } else {
-  //     register({ name, email, password });
-  //   }
-  // };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== password2) {
+      setAlert("Passwords do not match!", "danger");
+    } else {
+      register({ name, email, password });
+    }
+  };
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
   return (
     <Fragment>
       <section className="container sign-up-form">
@@ -26,7 +37,7 @@ const Register = () => {
           <i className="fa fa-user" aria-hidden="true"></i>
           <span> Create your account</span>
         </p>
-        <form className="form">
+        <form className="form" onSubmit={(e) => onSubmit(e)}>
           <div className="form-group">
             <input
               type="text"
@@ -72,4 +83,13 @@ const Register = () => {
     </Fragment>
   );
 };
-export default Register;
+
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { setAlert, register })(Register);
