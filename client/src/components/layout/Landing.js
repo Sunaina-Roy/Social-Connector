@@ -12,7 +12,7 @@ const Landing = ({ isAuthenticated }) => {
         <div className="dark-overlay">
           <div className="landing-inner">
             <h1 className="x-large">
-              Developer <span>connector</span>
+              Developers <span>social connector</span>
             </h1>
             <p className="lead">
               Create developer profile/portfolios,share posts and get help from
