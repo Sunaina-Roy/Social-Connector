@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://sunaina:Admin123!@devcon.vwttg.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "jwtSecret": "mySecretToken",
+  "githubClientId": "8f368fa84d9737b24898",
+  "githubSecret": "84d027b00394b8da3b02c2a6672262b21607f31e"
+}
